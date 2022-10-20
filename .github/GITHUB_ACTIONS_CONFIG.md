@@ -39,11 +39,11 @@ The newly created GitHub repo uses GitHub Actions to deploy Azure resources and 
 | `Azure_Credentials` | The JSON that is provided when you create a service principal. | |
 
 
-### Azure Portal Permmision Configuration
+### Azure Portal Permissions Configuration
 
 4. Verify your Azure Permissions ( You must have Contributor, Owner and User Access Administrator roles)
       
-  * Azure Red Hat OpenShift requires roleAssignment/write permission, so make sure your Azure user account has Microsoft.Authorization/roleAssignments/write permissions, such as User Access Administrator or Owner and Contributor. More info can be found in the documentation for [Azure built-in roles](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles).
+  * The AzureService Principal requires roleAssignment/write permission, so make sure  your Azure user account has Microsoft.Authorization/roleAssignments/write permissions, such as User Access Administrator or Owner and Contributor. More info can be found in the documentation for [Azure built-in roles](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles).
 
   + Go to your Subcription, look to the left hand side menu and select Access Control (IAM).
 
@@ -53,7 +53,7 @@ The newly created GitHub repo uses GitHub Actions to deploy Azure resources and 
 
   + Since you just created it, the Service Principal will have Contributor Access.
 
-  + In the Top Menu...Click "+Add", and select Assign Role Assignment from the drop down menu...
+  + In the Top Menu...Click "+Add", and select App Role Assignment from the drop down menu...
 
   + In the Role Serach Box.... type "User Access Administrator"
 
@@ -65,7 +65,7 @@ The newly created GitHub repo uses GitHub Actions to deploy Azure resources and 
 
   + On th Menbers Page...click "+Select Members"
 
-  + On the Select Members menu..type the name of the "Service Pricicpal" in the select box
+  + On the Select Members menu..type the name of the "Service Principal" in the select box (**Note:  ** This should be the name of your newly created Service Principal.)
 
   + At the bottom of the menu, click Select
 
