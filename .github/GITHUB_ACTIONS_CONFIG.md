@@ -43,7 +43,7 @@ The newly created GitHub repo uses GitHub Actions to deploy Azure resources and 
 
 4. Verify your Azure Permissions ( You must have Contributor, Owner and User Access Administrator roles)
       
-  * The AzureService Principal requires roleAssignment/write permission, so make sure  your Azure user account has Microsoft.Authorization/roleAssignments/write permissions, such as User Access Administrator or Owner and Contributor. More info can be found in the documentation for [Azure built-in roles](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles).
+  * The Azure Service Principal requires roleAssignment/write permission, so make sure your Azure user account has Microsoft.Authorization/roleAssignments/write permissions, such as User Access Administrator or Owner and Contributor. More info can be found in the documentation for [Azure built-in roles](https://learn.microsoft.com/en-us/azure/role-based-access-control/built-in-roles).
 
   + Go to your Subcription, look to the left hand side menu and select Access Control (IAM).
 
