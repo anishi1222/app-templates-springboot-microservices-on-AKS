@@ -81,7 +81,7 @@ jobs:
       with:
         scope: resourcegroup
         subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
-        resourceGroupName: ${{ env.HUB_RG }}
+        resourceGroupName: "${{ env.HUB_RG }}-${{ env.LOCATION }}"
         template: ./infra/aks-bicep/modules/firewall.bicep
         parameters: >
           ./infra/aks-bicep/action_params/firewall.parameters.json
@@ -94,7 +94,7 @@ jobs:
       with:
         scope: resourcegroup
         subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
-        resourceGroupName: ${{ env.HUB_RG }}
+        resourceGroupName: "${{ env.HUB_RG }}-${{ env.LOCATION }}"
         template: ./infra/aks-bicep/modules/jumpbox.bicep
         parameters: >
           ./infra/aks-bicep/action_params/jumpbox.parameters.json
@@ -120,7 +120,7 @@ jobs:
       with:
         scope: resourcegroup
         subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
-        resourceGroupName: ${{ env.SPOKE_RG }}
+        resourceGroupName: "${{ env.SPOKE_RG }}-${{ env.LOCATION }}"
         template: ./infra/aks-bicep/modules/routing_table.bicep
         parameters: >
           ./infra/aks-bicep/action_params/routing.parameters.json
@@ -144,11 +144,11 @@ jobs:
       with:
         scope: resourcegroup
         subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
-        resourceGroupName: ${{ env.SPOKE_RG }}
+        resourceGroupName: "${{ env.SPOKE_RG }}-${{ env.LOCATION }}"
         template: ./infra/aks-bicep/modules/spoke_network.bicep
         parameters: >
           ./infra/aks-bicep/action_params/spoke_networking.parameters.json
-          spoke_rg="${{ env.SPOKE_RG }}"
+          spoke_rg="${{ env.SPOKE_RG }}-${{ env.LOCATION }}"
           location="${{ env.LOCATION }}"
           spokeVnetName="${{ env.SPOKE_VNET }}"
           routeTableName="${{ env.ROUTE_TABLE_NAME }}"
@@ -169,24 +169,24 @@ jobs:
       with:
         scope: resourcegroup
         subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
-        resourceGroupName: ${{ env.HUB_RG }}
+        resourceGroupName: "${{ env.HUB_RG }}-${{ env.LOCATION }}"
         template: ./infra/aks-bicep/modules/peering.bicep
         parameters: >
           localVnetName="${{ env.HUB_VNET }}"
           remoteVnetName="${{ env.SPOKE_VNET }}"
-          rgToPeer="${{ env.SPOKE_RG }}"
+          rgToPeer="${{ env.SPOKE_RG }}-${{ env.LOCATION }}"
         deploymentName: hub-peering-github-actions
     - name: spoke_peering
       uses: azure/arm-deploy@v1
       with:
         scope: resourcegroup
         subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
-        resourceGroupName: ${{ env.SPOKE_RG }}
+        resourceGroupName: "${{ env.SPOKE_RG }}-${{ env.LOCATION }}"
         template: ./infra/aks-bicep/modules/peering.bicep
         parameters: >
           localVnetName="${{ env.SPOKE_VNET }}" 
           remoteVnetName="${{ env.HUB_VNET }}" 
-          rgToPeer="${{ env.HUB_RG }}"
+          rgToPeer="${{ env.HUB_RG }}-${{ env.LOCATION }}"
         deploymentName: spoke-peering-github-actions
 
   deploy_bastion:
@@ -204,7 +204,7 @@ jobs:
       with:
         scope: resourcegroup
         subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
-        resourceGroupName: ${{ env.HUB_RG }}
+        resourceGroupName: "${{ env.HUB_RG }}-${{ env.LOCATION }}"
         template: ./infra/aks-bicep/modules/bastion.bicep
         parameters: >
           ./infra/aks-bicep/action_params/bastion.parameters.json
@@ -231,5 +231,5 @@ jobs:
       uses: azure/powershell@v1
       with:
          inlineScript: | 
-          az deployment group create -g ${{ env.SPOKE_RG }} -f ./src/main.bicep
+          az deployment group create -g "${{ env.SPOKE_RG }}-${{ env.LOCATION }}" -f ./src/main.bicep
          azPSVersion: "latest"
