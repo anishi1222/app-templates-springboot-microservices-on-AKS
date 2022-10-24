@@ -103,7 +103,6 @@ jobs:
           adminUsername="${{ env.JUMPBOX_ADMIN_USER }}"
           adminPassword="${{ env.JUMPBOX_ADMIN_PWD }}"
           adminUsername="${{ env.JUMPBOX_ADMIN_USER }}"
-          clusterName=
           deploymentName: jumpbox-github-actions
 
   user_defined_routing:
