@@ -94,6 +94,7 @@ jobs:
       with:
         scope: resourcegroup
         subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
+        deploymentName: jumpbox-github-actions
         resourceGroupName: "${{ env.HUB_RG }}-${{ env.LOCATION }}"
         template: ./infra/aks-bicep/modules/jumpbox.bicep
         parameters: >
@@ -103,7 +104,6 @@ jobs:
           adminUsername="${{ env.JUMPBOX_ADMIN_USER }}"
           adminPassword="${{ env.JUMPBOX_ADMIN_PWD }}"
           adminUsername="${{ env.JUMPBOX_ADMIN_USER }}"
-          deploymentName: jumpbox-github-actions
 
   user_defined_routing:
     needs: deploy_firewall
