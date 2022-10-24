@@ -110,7 +110,8 @@ resource customScriptExtension 'Microsoft.Compute/virtualMachines/extensions@202
 //      'https://raw.githubusercontent.com/grantomation/aro-cse/master/openshift.ps1'
 //    ]
 //    commandToExecute: 'powershell -ExecutionPolicy Unrestricted -File openshift.ps1 -clusterName ${clusterName} -clusterRG ${spoke_rg}'
-      commandToExecute: 'powershell -ExecutionPolicy Unrestricted -File azcli-kubectl_install.ps1'
+      commandToExecute: 'winget install -e --id Microsoft.AzureCLI'
+      commandToExecute: 'Install-AzAksKubectl -Version latest'
     }
   }
 }
