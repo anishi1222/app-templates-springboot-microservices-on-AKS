@@ -25,8 +25,8 @@ on:
 env:
   LOCATION: 'japaneast'
   HUB_VNET: 'hub-vnet'
-  HUB_RG: 'petclinic-hub-'${{ env.LOCATION }}
-  SPOKE_RG: 'petclinic-spoke-'${{ env.LOCATION }}
+  HUB_RG: 'petclinic-hub'
+  SPOKE_RG: 'petclinic-spoke'
   SPOKE_VNET: 'spoke-vnet'
   FW_PRIVATE_IP: '10.0.0.4'
   ROUTE_TABLE_NAME: 'aks-udr'
@@ -51,14 +51,14 @@ jobs:
       with:
         inlineScript: |
           #!/bin/bash
-          az group create -l ${{ env.LOCATION }} -n ${{ env.HUB_RG }}
-          az group create -l ${{ env.LOCATION }} -n ${{ env.SPOKE_RG }}
+          az group create -l ${{ env.LOCATION }} -n "${{ env.HUB_RG }}-${{ env.LOCATION }}"
+          az group create -l ${{ env.LOCATION }} -n "${{ env.SPOKE_RG }}-${{ env.LOCATION }}"
     - name: hub networking
       uses: azure/arm-deploy@v1
       with:
         scope: resourcegroup
         subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
-        resourceGroupName: ${{ env.HUB_RG }}
+        resourceGroupName: "${{ env.HUB_RG }}-${{ env.LOCATION }}"
         template: ./infra/aks-bicep/modules/hub_network.bicep
         parameters: >
           ./infra/aks-bicep/action_params/hub_network.parameters.json
