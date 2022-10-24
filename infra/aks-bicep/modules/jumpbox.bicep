@@ -106,10 +106,11 @@ resource customScriptExtension 'Microsoft.Compute/virtualMachines/extensions@202
     settings: {
     }
     protectedSettings: {
-      fileUris: [
-        'https://raw.githubusercontent.com/grantomation/aro-cse/master/openshift.ps1'
-      ]
-      commandToExecute: 'powershell -ExecutionPolicy Unrestricted -File openshift.ps1 -clusterName ${clusterName} -clusterRG ${spoke_rg}'
+//    fileUris: [
+//      'https://raw.githubusercontent.com/grantomation/aro-cse/master/openshift.ps1'
+//    ]
+//    commandToExecute: 'powershell -ExecutionPolicy Unrestricted -File openshift.ps1 -clusterName ${clusterName} -clusterRG ${spoke_rg}'
+      commandToExecute: "$ProgressPreference = 'SilentlyContinue'; Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLI.msi; Start-Process msiexec.exe -Wait -ArgumentList '/I AzureCLI.msi /quiet'; rm .\AzureCLI.msi; Install-AzAksKubectl -Version latest"
     }
   }
 }
