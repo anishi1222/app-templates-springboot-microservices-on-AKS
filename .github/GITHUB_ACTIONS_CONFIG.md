@@ -4,12 +4,12 @@ The newly created GitHub repo uses GitHub Actions to deploy Azure resources and 
 
 1. Create an [Azure Service Principal](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli) with **contributor** permissions on the subscription. The subscription-level permission is needed because the deployment includes creation of the resource group itself.
  * Run the following [az cli](https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest) command, either locally on your command line or on the Cloud Shell. 
-   Replace {subscription-id} with the id of the subscription in GUID format. {service-principal-name} can be any alfanumeric string, e.g. GithubPrincipal
+   Replace {subscription-id} with the id of the subscription in GUID format. {service-principal-name} can be any alphanumeric string, e.g. GithubPrincipal
     ```bash  
        az ad sp create-for-rbac --name {service-principal-name} --role contributor --scopes /subscriptions/{subscription-id} --sdk-auth      
-      ```
+    ```
  * The command should output a JSON object similar to this:
- ```
+    ```
       {
         "clientId": "<GUID>",
         "clientSecret": "<GUID>",
@@ -22,7 +22,7 @@ The newly created GitHub repo uses GitHub Actions to deploy Azure resources and 
         "galleryEndpointUrl": "<URL>",
         "managementEndpointUrl": "<URL>"
       }
-   ```
+    ```
 2. Store the output JSON as the value of a GitHub secret named 'AZURE_CREDENTIALS'
    + Under your repository name, click Settings. 
    + In the "Security" section of the sidebar, select Secrets. Make sure you select Actions in Secrets.
@@ -34,9 +34,9 @@ The newly created GitHub repo uses GitHub Actions to deploy Azure resources and 
 
 3. The following  parameters are required.
 
-| Property | Description | Valid Options | Default Value |
-|----------|-------------|---------------|---------------|
-| `Azure_Credentials` | The JSON that is provided when you create a service principal. | |
+   | Property | Description | Valid Options | Default Value |
+   |----------|-------------|---------------|---------------|
+   | `Azure_Credentials` | The JSON that is provided when you create a service principal. | |
 
 
 ### Azure Portal Permissions Configuration
@@ -65,7 +65,7 @@ The newly created GitHub repo uses GitHub Actions to deploy Azure resources and 
 
   + On th Menbers Page...click "+Select Members"
 
-  + On the Select Members menu..type the name of the "Service Principal" in the select box (**Note:  ** This should be the name of your newly created Service Principal.)
+  + On the Select Members menu..type the name of the "Service Principal" in the select box (**Note:** This should be the name of your newly created Service Principal.)
 
   + At the bottom of the menu, click Select
 
