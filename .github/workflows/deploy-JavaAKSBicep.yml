@@ -25,8 +25,8 @@ on:
 env:
   LOCATION: 'japaneast'
   HUB_VNET: 'hub-vnet'
-  HUB_RG: petclinic-hub-${{ env.LOCATION }}
-  SPOKE_RG: petclinic-spoke-${{ env.LOCATION }}
+  HUB_RG: 'petclinic-hub-'${{ env.LOCATION }}
+  SPOKE_RG: 'petclinic-spoke-'${{ env.LOCATION }}
   SPOKE_VNET: 'spoke-vnet'
   FW_PRIVATE_IP: '10.0.0.4'
   ROUTE_TABLE_NAME: 'aks-udr'
