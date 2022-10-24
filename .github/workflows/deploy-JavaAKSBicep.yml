@@ -75,7 +75,7 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - name: deploy_jumpbox
+    - name: deploy_fireall
       uses: azure/arm-deploy@v1
       with:
         scope: resourcegroup
@@ -88,6 +88,22 @@ jobs:
           hubVnetName="${{ env.HUB_VNET }}"
           fwPrivateIP="${{ env.FW_PRIVATE_IP }}"
         deploymentName: firewall-github-actions
+    - name: deploy_jumpbox
+      uses: azure/arm-deploy@v1
+      with:
+        scope: resourcegroup
+        subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
+        resourceGroupName: ${{ env.HUB_RG }}
+        template: ./infra/aks-bicep/modules/jumpbox.bicep
+        parameters: >
+          ./infra/aks-bicep/action_params/jumpbox.parameters.json
+          location="${{ env.LOCATION }}"
+          hubVnetName="${{ env.HUB_VNET }}"
+          adminUsername="${{ env.JUMPBOX_ADMIN_USER }}"
+          adminPassword="${{ env.JUMPBOX_ADMIN_PWD }}"
+          adminUsername="${{ env.JUMPBOX_ADMIN_USER }}"
+          clusterName=
+          deploymentName: jumpbox-github-actions
 
   user_defined_routing:
     needs: deploy_firewall
@@ -206,7 +222,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
          java-version: '11'
-         distribution: 'adopt'
+         distribution: 'microsoft'
     - name: azure login
       uses: azure/login@v1
       with:
