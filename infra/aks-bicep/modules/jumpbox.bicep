@@ -12,8 +12,8 @@ param adminUsername string
 @secure()
 param adminPassword string
 
-param clusterName string
-param spoke_rg string
+// param clusterName string
+// param spoke_rg string
 
 var nsg_name = '${jumpbox_vm_name}NSG'
 var nsg_ip_config_name = 'ipconfig${jumpbox_vm_name}'
@@ -110,7 +110,7 @@ resource customScriptExtension 'Microsoft.Compute/virtualMachines/extensions@202
 //      'https://raw.githubusercontent.com/grantomation/aro-cse/master/openshift.ps1'
 //    ]
 //    commandToExecute: 'powershell -ExecutionPolicy Unrestricted -File openshift.ps1 -clusterName ${clusterName} -clusterRG ${spoke_rg}'
-      commandToExecute: '$ProgressPreference = \'SilentlyContinue\'; Invoke-WebRequest -Uri https://aka.ms/installazurecliwindows -OutFile .\AzureCLI.msi; Start-Process msiexec.exe -Wait -ArgumentList \'/I AzureCLI.msi /quiet\'; rm .\AzureCLI.msi; Install-AzAksKubectl -Version latest'
+      commandToExecute: 'powershell -ExecutionPolicy Unrestricted -File azcli-kubectl_install.ps1'
     }
   }
 }
