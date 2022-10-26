@@ -65,9 +65,9 @@ module dbs 'br/public:deployment-scripts/aks-run-command:1.0.1' = {
       '''
       helm repo add bitnami https://charts.bitnami.com/bitnami;
       helm repo update;
-      helm upgrade --install vets-db-mysql bitnami/mysql --namespace spring-petclinic --version 8.8.8 --set auth.database=service_instance_db;
-      helm upgrade --install visits-db-mysql bitnami/mysql --namespace spring-petclinic --version 8.8.8 --set auth.database=service_instance_db;
-      helm upgrade --install customers-db-mysql bitnami/mysql --namespace spring-petclinic --version 8.8.8 --set auth.database=service_instance_db;
+      helm upgrade --install vets-db-mysql bitnami/mysql --namespace spring-petclinic --version 9.4.1 --set auth.database=service_instance_db;
+      helm upgrade --install visits-db-mysql bitnami/mysql --namespace spring-petclinic --version 9.4.1 --set auth.database=service_instance_db;
+      helm upgrade --install customers-db-mysql bitnami/mysql --namespace spring-petclinic --version 9.4.1 --set auth.database=service_instance_db;
       '''
     ]
   }
