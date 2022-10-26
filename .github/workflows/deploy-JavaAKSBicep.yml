@@ -39,8 +39,6 @@ jobs:
   hub_networking:
     runs-on: ubuntu-latest
     steps:
-    - name: checkout code
-      uses: actions/checkout@main
     - name: azure login
       uses: azure/login@v1
       with:
@@ -53,6 +51,8 @@ jobs:
           #!/bin/bash
           az group create -l ${{ env.LOCATION }} -n "${{ env.HUB_RG }}-${{ env.LOCATION }}"
           az group create -l ${{ env.LOCATION }} -n "${{ env.SPOKE_RG }}-${{ env.LOCATION }}"
+    - name: checkout code
+      uses: actions/checkout@main
     - name: hub networking
       uses: azure/arm-deploy@v1
       with:
