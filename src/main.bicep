@@ -86,7 +86,9 @@ module app 'br/public:deployment-scripts/aks-run-command:1.0.1' = {
       rbacWriter
     ]
     commands: [
-      'helm upgrade --install petapp ${petClinicHelmUri} -n spring-petclinic --set wavefrontApiKey="${wavefrontApiKey}"'
+      '''
+      helm upgrade --install petapp "${petClinicHelmUri}" -n spring-petclinic --set wavefrontApiKey="${wavefrontApiKey}";
+      '''
     ]
   }
   dependsOn: [
