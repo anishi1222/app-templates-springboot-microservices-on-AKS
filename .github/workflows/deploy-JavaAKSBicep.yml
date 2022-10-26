@@ -228,9 +228,8 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: deploy AKS
-      uses: azure/arm-deploy@v1
+      uses: Azure/CLI@v1
       with:
-        subscriptionId: ${{ env.AZURE_SUBSCRIPTION }}
-        resourceGroupName: "${{ env.SPOKE_RG }}-${{ env.LOCATION }}"
-        template: ./src/main.bicep
-        failOnStdErr: false
+        inlineScript: |
+          #!/bin/bash
+          az deployment group create -g "${{ env.SPOKE_RG }}-${{ env.LOCATION }}" -f ./src/main.bicep
