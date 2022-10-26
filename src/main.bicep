@@ -91,5 +91,6 @@ module app 'br/public:deployment-scripts/aks-run-command:1.0.1' = {
   }
   dependsOn: [
     kubeNamespace
+    dbs
   ]
 }
